@@ -7,6 +7,10 @@ public class Car {
         this.number = carNumber;
     }
 
+    public Car() {
+
+    }
+
     public String getNumber() {
         return number;
     }
