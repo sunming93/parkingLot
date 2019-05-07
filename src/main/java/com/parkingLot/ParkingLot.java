@@ -11,10 +11,17 @@ import java.util.Objects;
 
 public class ParkingLot {
     private int capacity;
+    private String name;
     private Map<String, Car> cars;
 
     public ParkingLot(int capacity) {
         this.capacity = capacity;
+        cars = new HashMap<>();
+    }
+
+    public ParkingLot(int capacity, String name) {
+        this.capacity = capacity;
+        this.name = name;
         cars = new HashMap<>();
     }
 
