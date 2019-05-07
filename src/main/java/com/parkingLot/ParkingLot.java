@@ -19,15 +19,9 @@ public class ParkingLot {
     }
 
     public ParkingTicket park(Car car) throws Exception {
-        if (cars.size() >= capacity) {
-            throw new NoAvailablePositionException();
-        }
-        if (car.getNumber() == null) {
-            throw new NoNumberException();
-        }
-        if (Objects.nonNull(cars.get(car.getNumber()))) {
-            throw new DuplicatedCarException();
-        }
+        validateAvailablePosition();
+        validateNoNumber(car);
+        validateDuplicatedCar(car);
         cars.put(car.getNumber(), car);
         return new ParkingTicket(car.getNumber());
     }
@@ -37,5 +31,23 @@ public class ParkingLot {
             throw new NoCarException();
         }
         return cars.get(ticket.getId());
+    }
+
+    private void validateAvailablePosition() throws NoAvailablePositionException {
+        if (cars.size() >= capacity) {
+            throw new NoAvailablePositionException();
+        }
+    }
+
+    private void validateNoNumber(Car car) throws NoNumberException {
+        if (car.getNumber() == null) {
+            throw new NoNumberException();
+        }
+    }
+
+    private void validateDuplicatedCar(Car car) throws DuplicatedCarException {
+        if (Objects.nonNull(cars.get(car.getNumber()))) {
+            throw new DuplicatedCarException();
+        }
     }
 }
