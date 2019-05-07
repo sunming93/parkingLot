@@ -2,6 +2,7 @@ package com.parkingLot;
 
 import com.exceptions.DuplicatedCarException;
 import com.exceptions.NoAvailablePositionException;
+import com.exceptions.NoCarException;
 import com.exceptions.NoNumberException;
 
 import java.util.HashMap;
@@ -31,7 +32,10 @@ public class ParkingLot {
         return new ParkingTicket(car.getNumber());
     }
 
-    public Car pick(ParkingTicket ticket) {
+    public Car pick(ParkingTicket ticket) throws Exception {
+        if (!cars.containsKey(ticket.getId())) {
+            throw new NoCarException();
+        }
         return cars.get(ticket.getId());
     }
 }
