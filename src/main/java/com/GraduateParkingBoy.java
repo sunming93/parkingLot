@@ -1,5 +1,7 @@
 package com;
 
+import com.exceptions.DuplicatedCarException;
+import com.exceptions.NoAvailablePositionException;
 import com.parkingLot.Car;
 import com.parkingLot.ParkingLot;
 import com.parkingLot.ParkingTicket;
@@ -13,7 +15,14 @@ public class GraduateParkingBoy {
         this.parkingLots = parkingLots;
     }
 
-    public ParkingTicket park(Car car) {
-        return new ParkingTicket(car.getNumber(), "A");
+    public ParkingTicket park(Car car) throws Exception {
+        ParkingLot firstAvailableParkingLot = parkingLots.values().stream()
+                .filter(parkingLot -> parkingLot.getCars().size() < parkingLot.getCapacity())
+                .findFirst()
+                .orElseThrow(() -> new NoAvailablePositionException());
+
+        ParkingTicket ticket = firstAvailableParkingLot.park(car);
+        ticket.setParkingLotName(firstAvailableParkingLot.getName());
+        return ticket;
     }
 }

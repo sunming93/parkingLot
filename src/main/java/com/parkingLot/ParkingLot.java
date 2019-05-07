@@ -25,6 +25,18 @@ public class ParkingLot {
         cars = new HashMap<>();
     }
 
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Map<String, Car> getCars() {
+        return cars;
+    }
+
     public ParkingTicket park(Car car) throws Exception {
         validateAvailablePosition();
         validateNoNumber(car);
