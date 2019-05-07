@@ -35,4 +35,13 @@ public class ParkingLotTest {
         parkingLot.park(new Car("A1123"));
         assertThrows(DuplicatedCarException.class,() -> parkingLot.park(new Car("A1123")));
     }
+
+    @Test
+    void should_return_the_car_when_pick_car_given_valid_parking_ticket() throws Exception {
+        ParkingLot parkingLot = new ParkingLot(1);
+        Car car = new Car("A1123");
+        ParkingTicket ticket = parkingLot.park(car);
+        Car actualCar = parkingLot.pick(ticket);
+        assertEquals(actualCar, car);
+    }
 }
