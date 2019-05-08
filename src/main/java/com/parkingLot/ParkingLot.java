@@ -29,6 +29,10 @@ public class ParkingLot {
         return capacity;
     }
 
+    public int getAvailableLotNumber() {
+        return capacity - cars.size();
+    }
+
     public String getName() {
         return name;
     }

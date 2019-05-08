@@ -21,4 +21,17 @@ public class SmartParkingBoyTest {
         assertEquals("A12345", ticket.getId());
         assertEquals("A",ticket.getParkingLotName());
     }
+
+    @Test
+    void should_return_ticket_of_b_when_park_given_1_available_position_in_park_lot_a_and_2_available_position_in_park_lot_b_and_unique_number() throws Exception {
+        Map<String, ParkingLot> parkingLots = new HashMap<>();
+        parkingLots.put("A", new ParkingLot(1, "A"));
+        parkingLots.put("B", new ParkingLot(2, "B"));
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+
+        ParkingTicket ticket = smartParkingBoy.park(new Car("A12345"));
+
+        assertEquals("A12345", ticket.getId());
+        assertEquals("B",ticket.getParkingLotName());
+    }
 }
