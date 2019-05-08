@@ -29,4 +29,8 @@ public class GraduateParkingBoy {
         ticket.setParkingLotName(firstAvailableParkingLot.getName());
         return ticket;
     }
+
+    public Car pick(ParkingTicket ticket) throws Exception {
+        return parkingLots.get(ticket.getParkingLotName()).pick(ticket);
+    }
 }
