@@ -1,12 +1,14 @@
 package com.parkingLot;
 
 import com.SmartParkingBoy;
+import com.exceptions.NoNumberException;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SmartParkingBoyTest {
     @Test
@@ -33,5 +35,15 @@ public class SmartParkingBoyTest {
 
         assertEquals("A12345", ticket.getId());
         assertEquals("B",ticket.getParkingLotName());
+    }
+
+    @Test
+    void should_throw_no_number_exception_when_park_given_available_position_in_park_lot_b_and_available_position_in_park_lot_a_and_no_number() throws Exception {
+        Map<String, ParkingLot> parkingLots = new HashMap<>();
+        parkingLots.put("A", new ParkingLot(1, "A"));
+        parkingLots.put("B", new ParkingLot(1, "B"));
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+
+        assertThrows(NoNumberException.class,() -> smartParkingBoy.park(new Car()));
     }
 }
