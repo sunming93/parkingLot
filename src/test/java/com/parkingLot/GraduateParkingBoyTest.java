@@ -61,4 +61,16 @@ public class GraduateParkingBoyTest {
 
         assertThrows(DuplicatedCarException.class,() -> graduateParkingBoy.park(new Car("A12345")));
     }
+
+    @Test
+    void should_throw_duplicated_car_exception_when_park_given_available_position_in_park_lot_b_and_available_position_in_park_lot_a_and_duplicated_number_in_parking_lot_b() throws Exception {
+        ParkingLot parkingLotB = new ParkingLot(2, "B");
+        parkingLotB.park(new Car("A12345"));
+        Map<String, ParkingLot> parkingLots = new HashMap<>();
+        parkingLots.put("A", new ParkingLot(1, "A"));
+        parkingLots.put("B", parkingLotB);
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+
+        assertThrows(DuplicatedCarException.class,() -> graduateParkingBoy.park(new Car("A12345")));
+    }
 }

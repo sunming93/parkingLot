@@ -21,6 +21,10 @@ public class GraduateParkingBoy {
                 .findFirst()
                 .orElseThrow(() -> new NoAvailablePositionException());
 
+        if (parkingLots.values().stream().anyMatch(parkingLot -> parkingLot.getCars().containsKey(car.getNumber()))) {
+            throw new DuplicatedCarException();
+        }
+
         ParkingTicket ticket = firstAvailableParkingLot.park(car);
         ticket.setParkingLotName(firstAvailableParkingLot.getName());
         return ticket;
