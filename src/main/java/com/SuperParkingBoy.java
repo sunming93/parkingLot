@@ -1,5 +1,6 @@
 package com;
 
+import com.exceptions.DuplicatedCarException;
 import com.exceptions.NoAvailablePositionException;
 import com.parkingLot.Car;
 import com.parkingLot.ParkingLot;
@@ -21,6 +22,10 @@ public class SuperParkingBoy {
                 .sorted(Comparator.comparingDouble(ParkingLot::getAvailableRate).reversed())
                 .findFirst()
                 .orElseThrow(() -> new NoAvailablePositionException());
+
+        if (parkingLots.values().stream().anyMatch(parkingLot -> parkingLot.getCars().containsKey(car.getNumber()))) {
+            throw new DuplicatedCarException();
+        }
 
         ParkingTicket ticket = firstAvailableParkingLot.park(car);
         ticket.setParkingLotName(firstAvailableParkingLot.getName());
