@@ -1,6 +1,5 @@
 package com.parkingLot;
 
-import com.SmartParkingBoy;
 import com.SuperParkingBoy;
 import com.exceptions.DuplicatedCarException;
 import com.exceptions.NoAvailablePositionException;
@@ -90,5 +89,19 @@ public class SuperParkingBoyTest {
         SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
 
         assertThrows(NoAvailablePositionException.class,() -> superParkingBoy.park(new Car("A12345")));
+    }
+
+    @Test
+    void should_return_the_right_car_when_pick_car_given_valid_parking_ticket() throws Exception {
+        Map<String, ParkingLot> parkingLots = new HashMap<>();
+        parkingLots.put("A", new ParkingLot(1, "A"));
+        parkingLots.put("B", new ParkingLot(1, "B"));
+        SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
+        Car car = new Car("A1123");
+        ParkingTicket ticket = superParkingBoy.park(car);
+
+        Car actualCar = superParkingBoy.pick(ticket);
+
+        assertEquals(actualCar, car);
     }
 }

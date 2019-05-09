@@ -2,6 +2,7 @@ package com;
 
 import com.exceptions.DuplicatedCarException;
 import com.exceptions.NoAvailablePositionException;
+import com.exceptions.NoCarException;
 import com.parkingLot.Car;
 import com.parkingLot.ParkingLot;
 import com.parkingLot.ParkingTicket;
@@ -30,5 +31,10 @@ public class SuperParkingBoy {
         ParkingTicket ticket = firstAvailableParkingLot.park(car);
         ticket.setParkingLotName(firstAvailableParkingLot.getName());
         return ticket;
+    }
+
+    public Car pick(ParkingTicket ticket) throws Exception {
+        ParkingLot parkingLot = parkingLots.get(ticket.getParkingLotName());
+        return parkingLot.pick(ticket);
     }
 }
