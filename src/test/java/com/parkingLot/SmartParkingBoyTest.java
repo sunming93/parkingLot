@@ -86,4 +86,18 @@ public class SmartParkingBoyTest {
 
         assertThrows(NoAvailablePositionException.class,() -> smartParkingBoy.park(new Car("A12345")));
     }
+
+    @Test
+    void should_return_the_right_car_when_pick_car_given_valid_parking_ticket() throws Exception {
+        Map<String, ParkingLot> parkingLots = new HashMap<>();
+        parkingLots.put("A", new ParkingLot(1, "A"));
+        parkingLots.put("B", new ParkingLot(1, "B"));
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        Car car = new Car("A1123");
+        ParkingTicket ticket = smartParkingBoy.park(car);
+
+        Car actualCar = smartParkingBoy.pick(ticket);
+
+        assertEquals(actualCar, car);
+    }
 }
