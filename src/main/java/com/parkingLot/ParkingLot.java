@@ -33,6 +33,10 @@ public class ParkingLot {
         return capacity - cars.size();
     }
 
+    public double getAvailableRate() {
+        return (double) (capacity - cars.size()) / capacity;
+    }
+
     public String getName() {
         return name;
     }
