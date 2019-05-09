@@ -3,6 +3,7 @@ package com.parkingLot;
 import com.SmartParkingBoy;
 import com.SuperParkingBoy;
 import com.exceptions.DuplicatedCarException;
+import com.exceptions.NoAvailablePositionException;
 import com.exceptions.NoNumberException;
 import org.junit.jupiter.api.Test;
 
@@ -75,5 +76,19 @@ public class SuperParkingBoyTest {
         SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
 
         assertThrows(DuplicatedCarException.class,() -> superParkingBoy.park(new Car("A12345")));
+    }
+
+    @Test
+    void should_throw_no_available_exception_when_park_given_not_available_position_in_park_lot_b_and_not_available_position_in_park_lot_a_and_unique_number() throws Exception {
+        ParkingLot parkingLotA = new ParkingLot(1, "A");
+        parkingLotA.park(new Car("A123"));
+        ParkingLot parkingLotB = new ParkingLot(1, "B");
+        parkingLotB.park(new Car("A1234"));
+        Map<String, ParkingLot> parkingLots = new HashMap<>();
+        parkingLots.put("A", parkingLotA);
+        parkingLots.put("B", parkingLotB);
+        SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
+
+        assertThrows(NoAvailablePositionException.class,() -> superParkingBoy.park(new Car("A12345")));
     }
 }
