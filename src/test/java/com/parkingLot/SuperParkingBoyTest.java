@@ -3,6 +3,7 @@ package com.parkingLot;
 import com.SuperParkingBoy;
 import com.exceptions.DuplicatedCarException;
 import com.exceptions.NoAvailablePositionException;
+import com.exceptions.NoCarException;
 import com.exceptions.NoNumberException;
 import org.junit.jupiter.api.Test;
 
@@ -103,5 +104,16 @@ public class SuperParkingBoyTest {
         Car actualCar = superParkingBoy.pick(ticket);
 
         assertEquals(actualCar, car);
+    }
+
+    @Test
+    void should_throw_no_car_exception_when_pick_car_given_invalid_parking_ticket() throws Exception {
+        Map<String, ParkingLot> parkingLots = new HashMap<>();
+        parkingLots.put("A", new ParkingLot(1, "A"));
+        parkingLots.put("B", new ParkingLot(1, "B"));
+        SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
+        ParkingTicket invalidTicket = new ParkingTicket("hack", "hack");
+
+        assertThrows(NoCarException.class, () -> superParkingBoy.pick(invalidTicket));
     }
 }

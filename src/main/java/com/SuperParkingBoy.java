@@ -35,6 +35,9 @@ public class SuperParkingBoy {
 
     public Car pick(ParkingTicket ticket) throws Exception {
         ParkingLot parkingLot = parkingLots.get(ticket.getParkingLotName());
+        if (parkingLot == null) {
+            throw new NoCarException();
+        }
         return parkingLot.pick(ticket);
     }
 }
